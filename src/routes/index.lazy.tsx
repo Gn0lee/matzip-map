@@ -1,13 +1,22 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
+import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
+
+import TopSearchBar from 'src/entities/root/ui/TopSearchBar.tsx';
 
 export const Route = createLazyFileRoute('/')({
 	component: Index,
 });
 
 function Index() {
+	useKakaoLoader({
+		appkey: import.meta.env.VITE_KAKAO_APP_KEY,
+		libraries: ['services'],
+	});
+
 	return (
-		<div className="p-2">
-			<h3>Welcome Home!</h3>
-		</div>
+		<>
+			<TopSearchBar />
+			<Map center={{ lat: 37.5665, lng: 126.978 }} style={{ width: '100%', height: '100%' }} />
+		</>
 	);
 }
