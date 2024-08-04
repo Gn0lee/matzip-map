@@ -1,6 +1,39 @@
 import { Box, Flex, Input, Button } from '@chakra-ui/react';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { markerListAtom, searchValueAtom } from 'src/entities/root/store/atom.ts';
+import { setSearchValueAtom } from 'src/entities/root/store/action.ts';
+import { ChangeEventHandler, FormEventHandler } from 'react';
+import { useMap } from 'react-kakao-maps-sdk';
 
 export default function TopSearchBar() {
+	const searchValue = useAtomValue(searchValueAtom);
+
+	const map = useMap();
+
+	const setSearchValue = useSetAtom(setSearchValueAtom);
+
+	const setMarkerList = useSetAtom(markerListAtom);
+
+	const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
+		setSearchValue(event.target.value);
+	};
+
+	const handleSubmitSearch: FormEventHandler<HTMLFormElement> = event => {
+		event.preventDefault();
+
+		const places = new kakao.maps.services.Places(map);
+
+		places.keywordSearch(
+			searchValue,
+			(result, status) => {
+				if (status === kakao.maps.services.Status.OK) {
+					setMarkerList(result);
+				}
+			},
+			{ useMapBounds: true, useMapCenter: true },
+		);
+	};
+
 	return (
 		<Box
 			bg="gray.50"
@@ -13,10 +46,14 @@ export default function TopSearchBar() {
 			width="calc(100% - 32px)"
 			borderRadius="md"
 		>
-			<Flex gap="2">
-				<Input placeholder="식당을 검색하세요" />
-				<Button colorScheme="blue">검색</Button>
-			</Flex>
+			<form onSubmit={handleSubmitSearch}>
+				<Flex gap="2">
+					<Input placeholder="식당을 검색하세요" value={searchValue} onChange={handleChange} />
+					<Button colorScheme="blue" type="submit">
+						검색
+					</Button>
+				</Flex>
+			</form>
 		</Box>
 	);
 }

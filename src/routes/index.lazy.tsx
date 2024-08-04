@@ -2,6 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 
 import TopSearchBar from 'src/entities/root/ui/TopSearchBar.tsx';
+import SearchMarkerList from 'src/entities/root/ui/SearchMarkerList.tsx';
 
 export const Route = createLazyFileRoute('/')({
 	component: Index,
@@ -15,8 +16,10 @@ function Index() {
 
 	return (
 		<>
-			<TopSearchBar />
-			<Map center={{ lat: 37.5665, lng: 126.978 }} style={{ width: '100%', height: '100%' }} />
+			<Map center={{ lat: 37.5665, lng: 126.978 }} style={{ width: '100%', height: '100%' }}>
+				<TopSearchBar />
+				<SearchMarkerList />
+			</Map>
 		</>
 	);
 }
