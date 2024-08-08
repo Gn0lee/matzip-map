@@ -27,9 +27,6 @@
   "devDependencies": {
     "@tanstack/router-devtools": "^1.31.3",
     "@tanstack/router-vite-plugin": "^1.30.0",
-    "@testing-library/react": "^14.2.1",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
