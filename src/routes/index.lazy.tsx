@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
+import Geolocation from 'src/entities/root/hooks/geolocation.tsx';
 
 import TopSearchBar from 'src/entities/root/ui/TopSearchBar.tsx';
 import SearchMarkerList from 'src/entities/root/ui/SearchMarkerList.tsx';
@@ -19,6 +20,7 @@ function Index() {
 			<Map center={{ lat: 37.5665, lng: 126.978 }} style={{ width: '100%', height: '100%' }} isPanto level={4}>
 				<TopSearchBar />
 				<SearchMarkerList />
+				<Geolocation />
 			</Map>
 		</>
 	);
