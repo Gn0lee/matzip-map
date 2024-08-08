@@ -10,7 +10,7 @@ export default function SearchMarkerList() {
 	const handleClickMarker = (marker: kakao.maps.Marker) => {
 		const position = marker.getPosition();
 
-		map.setCenter(position);
+		map.panTo(position);
 	};
 
 	return (
