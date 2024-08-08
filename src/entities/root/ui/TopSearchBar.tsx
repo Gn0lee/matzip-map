@@ -30,7 +30,7 @@ export default function TopSearchBar() {
 					setMarkerList(result);
 				}
 			},
-			{ useMapBounds: true, useMapCenter: true },
+			{ useMapBounds: true, useMapCenter: true, category_group_code: 'FD6' },
 		);
 	};
 
