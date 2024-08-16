@@ -10,4 +10,5 @@ export const placeInfoQueryOptions = ({ id }: Partial<Pick<kakao.maps.services.P
 		queryFn: async () => supabaseInstance.get(`place-info/${id}`).json<ApiData<PlaceInfo>>(),
 		select: data => data.data,
 		retry: 1,
+		staleTime: 1000 * 60 * 60,
 	});

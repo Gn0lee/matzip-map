@@ -26,19 +26,17 @@ function Index() {
 	};
 
 	return (
-		<>
-			<Map
-				center={{ lat: 37.5665, lng: 126.978 }}
-				style={{ width: '100%', height: '100%' }}
-				isPanto
-				level={4}
-				onCenterChanged={handleCenterChangeEnd}
-			>
-				<TopSearchBar />
-				<SearchMarkerList />
-				<Geolocation />
-				<SearchMarkerModal />
-			</Map>
-		</>
+		<Map
+			center={{ lat: 37.5665, lng: 126.978 }}
+			style={{ width: '100%', height: '100%' }}
+			isPanto
+			level={4}
+			onCenterChanged={handleCenterChangeEnd}
+		>
+			<TopSearchBar />
+			<SearchMarkerList />
+			<Geolocation />
+			<SearchMarkerModal />
+		</Map>
 	);
 }
