@@ -1,13 +1,13 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
-import Geolocation from 'src/entities/root/hooks/geolocation';
+import { useSetAtom } from 'jotai';
 
+import Geolocation from 'src/entities/root/hooks/geolocation';
 import TopSearchBar from 'src/entities/root/ui/TopSearchBar';
 import SearchMarkerList from 'src/entities/root/ui/SearchMarkerList';
-import { useSetAtom } from 'jotai';
 import { isMapCenterChangedAtom } from 'src/entities/root/store/atom';
-
 import SearchMarkerModal from 'src/entities/root/ui/SearchMarkerModal';
+import NavigationMenu from 'src/shared/ui/NavigationMenu';
 
 export const Route = createLazyFileRoute('/')({
 	component: Index,
@@ -37,6 +37,9 @@ function Index() {
 			<SearchMarkerList />
 			<Geolocation />
 			<SearchMarkerModal />
+			<NavigationMenu
+				menuButtonProps={{ position: 'absolute', top: '16px', right: '16px', zIndex: 2, backgroundColor: 'gray.50' }}
+			/>
 		</Map>
 	);
 }
