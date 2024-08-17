@@ -31,7 +31,7 @@ export default function PageLayout({ children, heading }: PageLayoutProps) {
 			</GridItem>
 			<GridItem area="main">
 				<Center width="100%" height="100%">
-					<Stack width={['100%', '400px']} p={[4, 6]} spacing={4} height="100%" overflow="auto">
+					<Stack width={['100%', '400px']} p={[2, 3]} spacing={4} height="100%" overflow="auto">
 						{children}
 					</Stack>
 				</Center>
