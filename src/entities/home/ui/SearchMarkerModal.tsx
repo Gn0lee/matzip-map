@@ -1,4 +1,4 @@
-import { selectedSearchResultAtom, isMapCenterChangedAtom } from 'src/entities/root/store/atom';
+import { selectedSearchResultAtom, isMapCenterChangedAtom } from 'src/entities/home/store/atom';
 import {
 	Modal,
 	ModalContent,
@@ -24,7 +24,7 @@ import {
 import { ExternalLinkIcon, StarIcon } from '@chakra-ui/icons';
 import { useAtom } from 'jotai';
 import { useQuery } from '@tanstack/react-query';
-import { placeInfoQueryOptions } from 'src/entities/root/queries/place';
+import { placeInfoQueryOptions } from 'src/entities/home/queries/place';
 import { useState } from 'react';
 import { PhoneIcon, QuestionIcon } from '@chakra-ui/icons';
 

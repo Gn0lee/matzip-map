@@ -1,6 +1,6 @@
 import { MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useSetAtom } from 'jotai';
-import { selectedSearchResultAtom, isMapCenterChangedAtom } from 'src/entities/root/store/atom';
+import { selectedSearchResultAtom, isMapCenterChangedAtom } from 'src/entities/home/store/atom';
 
 export default function SearchMarker(result: kakao.maps.services.PlacesSearchResultItem) {
 	const map = useMap();

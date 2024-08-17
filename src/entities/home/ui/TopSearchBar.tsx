@@ -1,7 +1,7 @@
 import { Box, Flex, Input, Button } from '@chakra-ui/react';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { markerListAtom, searchValueAtom } from 'src/entities/root/store/atom';
-import { setSearchValueAtom } from 'src/entities/root/store/action';
+import { markerListAtom, searchValueAtom } from 'src/entities/home/store/atom';
+import { setSearchValueAtom } from 'src/entities/home/store/action';
 import { ChangeEventHandler, FormEventHandler } from 'react';
 import { useMap } from 'react-kakao-maps-sdk';
 
