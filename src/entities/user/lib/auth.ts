@@ -14,6 +14,7 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 					path: '/',
 					httpOnly: false,
 					sameSite: 'none',
+					domain: import.meta.env.VITE_COOKIE_DOMAIN,
 					secure: true,
 				});
 			},
@@ -22,6 +23,7 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 					path: '/',
 					httpOnly: false,
 					sameSite: 'none',
+					domain: import.meta.env.VITE_COOKIE_DOMAIN,
 					secure: true,
 				});
 			},
