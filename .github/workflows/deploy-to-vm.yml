@@ -1,0 +1,56 @@
+name: Deploy React App to GCP VM
+
+on:
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
+  GCE_INSTANCE_ZONE: ${{ secrets.GCE_INSTANCE_ZONE }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create .env file
+        run: |
+          echo "VITE_KAKAO_APP_KEY=${{ secrets.VITE_KAKAO_APP_KEY }}" >> .env.production
+          echo "VITE_KAKAO_CALLBACK_URL=${{ secrets.VITE_KAKAO_CALLBACK_URL }}" >> .env.production
+          echo "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}" >> .env.production
+          echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env.production
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env.production
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Google Cloud Auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Deploy to GCE
+        run: |
+          gcloud compute scp --recurse dist/* ${{ env.GCE_INSTANCE }}:/home/jinho605/matzipmap/fe --zone ${{ env.GCE_INSTANCE_ZONE }}
+          gcloud compute ssh ${{ env.GCE_INSTANCE }} --zone ${{ env.GCE_INSTANCE_ZONE }} --command '
+            sudo systemctl restart nginx
+          '
