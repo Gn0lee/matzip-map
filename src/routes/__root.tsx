@@ -1,7 +1,16 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { lazy, Suspense } from 'react';
+
+const TanStackRouterDevtools = import.meta.env.DEV
+	? lazy(() =>
+			import('@tanstack/router-devtools').then(res => ({
+				default: res.TanStackRouterDevtools,
+			})),
+		)
+	: () => null;
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -34,7 +43,9 @@ export const Route = createRootRoute({
 		<QueryClientProvider client={queryClient}>
 			<ChakraProvider theme={theme}>
 				<Outlet />
-				<TanStackRouterDevtools />
+				<Suspense fallback={null}>
+					<TanStackRouterDevtools />
+				</Suspense>
 			</ChakraProvider>
 		</QueryClientProvider>
 	),
