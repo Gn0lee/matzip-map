@@ -1,17 +1,16 @@
 import { Card, CardBody, CardHeader, Button, Heading, Stack } from '@chakra-ui/react';
 
 import KakaoIcon from 'src/entities/user/ui/KakaoIcon';
-import { useKakaoSDK } from 'src/entities/user/hooks/script';
+import supabase from 'src/entities/user/lib/auth';
 
 export default function LoginCard() {
-	const { isLoaded } = useKakaoSDK(import.meta.env.VITE_KAKAO_APP_KEY);
-
-	const handleClickKakaoLogin = () => {
-		if (window?.Kakao?.Auth) {
-			window?.Kakao.Auth.authorize({
-				redirectUri: import.meta.env.VITE_KAKAO_CALLBACK_URL,
-			});
-		}
+	const handleClickKakaoLogin = async () => {
+		await supabase.auth.signInWithOAuth({
+			provider: 'kakao',
+			options: {
+				redirectTo: import.meta.env.VITE_KAKAO_CALLBACK_URL,
+			},
+		});
 	};
 
 	return (
@@ -25,7 +24,6 @@ export default function LoginCard() {
 						backgroundColor="#fae500"
 						leftIcon={<KakaoIcon />}
 						_hover={{ backgroundColor: '#e6cf00' }}
-						disabled={!isLoaded}
 						onClick={handleClickKakaoLogin}
 					>
 						카카오 로그인

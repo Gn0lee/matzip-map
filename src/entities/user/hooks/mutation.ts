@@ -1,10 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import supabaseInstance from 'src/shared/ky/supabaseInstance';
+import { matzipApiInstance } from 'src/shared/lib/ky';
 import { useNavigate } from '@tanstack/react-router';
 import { useToast } from '@chakra-ui/react';
-import { User } from 'src/entities/user/types/user';
-import { Auth } from 'src/entities/user/types/auth';
-import { SESSION_STORAGE_KEYS } from 'src/shared/constants/storage';
 
 const FAIL_TOAST_ID = 'fail-toast';
 
@@ -15,15 +12,12 @@ export const usePostOauthKakaoCallback = () => {
 
 	return useMutation({
 		mutationFn: (code: string) =>
-			supabaseInstance
-				.post('oauth/kakao', {
-					body: JSON.stringify({ code, redirect_uri: import.meta.env.VITE_KAKAO_CALLBACK_URL }),
+			matzipApiInstance
+				.get('oauth/kakao/callback', {
+					searchParams: { code },
 				})
-				.json<{ user: User } & Auth>(),
-		onSuccess: data => {
-			sessionStorage.setItem(SESSION_STORAGE_KEYS.ACCESS_TOKEN, data.access_token);
-			sessionStorage.setItem(SESSION_STORAGE_KEYS.REFRESH_TOKEN, data.refresh_token);
-
+				.json<{ message: string }>(),
+		onSuccess: () => {
 			navigate({ to: '/' });
 		},
 		onError: () => {
