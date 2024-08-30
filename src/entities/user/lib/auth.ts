@@ -12,7 +12,6 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 			setItem: (key, value) => {
 				Cookies.set(key, value, {
 					expires: 365,
-					sameSite: 'Lax',
 					secure: import.meta.env.PROD,
 					domain: import.meta.env.VITE_COOKIE_DOMAIN,
 					path: '/',
@@ -21,7 +20,6 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 			},
 			removeItem: key => {
 				Cookies.remove(key, {
-					sameSite: 'Lax',
 					secure: import.meta.env.PROD,
 					domain: import.meta.env.VITE_COOKIE_DOMAIN,
 					path: '/',
