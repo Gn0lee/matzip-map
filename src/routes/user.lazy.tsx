@@ -1,7 +1,9 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import PageLayout from 'src/shared/ui/PageLayout';
 import LoginCard from 'src/entities/user/ui/LoginCard';
+import UserInfoCard from 'src/entities/user/ui/UserInfoCard';
 
 export const Route = createLazyFileRoute('/user')({
 	component: User,
@@ -9,8 +11,10 @@ export const Route = createLazyFileRoute('/user')({
 
 function User() {
 	return (
-		<PageLayout heading="계정 정보">
-			<LoginCard />
+		<PageLayout heading="내 정보">
+			<ErrorBoundary fallback={<LoginCard />}>
+				<UserInfoCard />
+			</ErrorBoundary>
 		</PageLayout>
 	);
 }
