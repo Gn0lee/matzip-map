@@ -25,6 +25,7 @@ export default function NavigationMenu({ menuProps, menuButtonProps }: Navigatio
 			/>
 			<MenuList>
 				<MenuItem onClick={handleMenuItemClick('/')}>홈</MenuItem>
+				<MenuItem onClick={handleMenuItemClick('/group')}>모임</MenuItem>
 				<MenuItem onClick={handleMenuItemClick('/user')}>내 정보</MenuItem>
 			</MenuList>
 		</Menu>

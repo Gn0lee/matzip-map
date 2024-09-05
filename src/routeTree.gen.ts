@@ -18,6 +18,7 @@ import { Route as OauthKakaoCallbackImport } from './routes/oauth.kakao.callback
 // Create Virtual Routes
 
 const UserLazyImport = createFileRoute('/user')()
+const GroupLazyImport = createFileRoute('/group')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -27,6 +28,11 @@ const UserLazyRoute = UserLazyImport.update({
   path: '/user',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/user.lazy').then((d) => d.Route))
+
+const GroupLazyRoute = GroupLazyImport.update({
+  path: '/group',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/group.lazy').then((d) => d.Route))
 
 const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
@@ -55,6 +61,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/group': {
+      preLoaderRoute: typeof GroupLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/user': {
       preLoaderRoute: typeof UserLazyImport
       parentRoute: typeof rootRoute
@@ -71,6 +81,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   AboutLazyRoute,
+  GroupLazyRoute,
   UserLazyRoute,
   OauthKakaoCallbackRoute,
 ])
