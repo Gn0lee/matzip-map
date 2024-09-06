@@ -21,7 +21,7 @@ export default function PageLayout({ children, heading }: PageLayoutProps) {
 		>
 			<GridItem area="header">
 				<Center width="100%" height="100%">
-					<Flex justifyContent="space-between" alignItems="center" width={['100%', '400px']} height="100%" p={[2, 3]}>
+					<Flex justifyContent="space-between" alignItems="center" width={['100%', '450px']} height="100%" p={[2, 3]}>
 						<Heading as="h3" fontSize={['xl', '2xl']}>
 							{heading}
 						</Heading>
@@ -31,7 +31,7 @@ export default function PageLayout({ children, heading }: PageLayoutProps) {
 			</GridItem>
 			<GridItem area="main">
 				<Center width="100%" height="100%">
-					<Stack width={['100%', '400px']} p={[2, 3]} spacing={4} height="100%" overflow="auto">
+					<Stack width={['100%', '450px']} p={[2, 3]} spacing={4} height="100%" overflow="auto">
 						{children}
 					</Stack>
 				</Center>

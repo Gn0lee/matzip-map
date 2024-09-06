@@ -30,7 +30,9 @@ export default function UserInfoCard() {
 		<Card>
 			<CardHeader>
 				<Flex justifyContent="space-between" alignItems="center">
-					<Heading size="md">계정</Heading>
+					<Heading size="md" as="h4">
+						계정
+					</Heading>
 					<Button size={['xs', 'sm']} variant="outline" leftIcon={<Icon as={LogOut} />} onClick={handleClickLogout}>
 						로그아웃
 					</Button>
