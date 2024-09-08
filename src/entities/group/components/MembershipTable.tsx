@@ -15,7 +15,6 @@ export default function MembershipTable() {
 					<Table>
 						<Thead>
 							<Tr>
-								<Th>번호</Th>
 								<Th>이름</Th>
 								<Th>역할</Th>
 								<Th>가입일</Th>
