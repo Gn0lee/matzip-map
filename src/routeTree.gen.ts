@@ -18,9 +18,10 @@ import { Route as OauthKakaoCallbackImport } from './routes/oauth.kakao.callback
 // Create Virtual Routes
 
 const UserLazyImport = createFileRoute('/user')()
-const GroupLazyImport = createFileRoute('/group')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const GroupIndexLazyImport = createFileRoute('/group/')()
+const GroupGroupIdLazyImport = createFileRoute('/group/$groupId')()
 
 // Create/Update Routes
 
@@ -28,11 +29,6 @@ const UserLazyRoute = UserLazyImport.update({
   path: '/user',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/user.lazy').then((d) => d.Route))
-
-const GroupLazyRoute = GroupLazyImport.update({
-  path: '/group',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/group.lazy').then((d) => d.Route))
 
 const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
@@ -43,6 +39,18 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const GroupIndexLazyRoute = GroupIndexLazyImport.update({
+  path: '/group/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/group.index.lazy').then((d) => d.Route))
+
+const GroupGroupIdLazyRoute = GroupGroupIdLazyImport.update({
+  path: '/group/$groupId',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/group.$groupId.lazy').then((d) => d.Route),
+)
 
 const OauthKakaoCallbackRoute = OauthKakaoCallbackImport.update({
   path: '/oauth/kakao/callback',
@@ -61,12 +69,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
-    '/group': {
-      preLoaderRoute: typeof GroupLazyImport
-      parentRoute: typeof rootRoute
-    }
     '/user': {
       preLoaderRoute: typeof UserLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/group/$groupId': {
+      preLoaderRoute: typeof GroupGroupIdLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/group/': {
+      preLoaderRoute: typeof GroupIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/oauth/kakao/callback': {
@@ -81,8 +93,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   AboutLazyRoute,
-  GroupLazyRoute,
   UserLazyRoute,
+  GroupGroupIdLazyRoute,
+  GroupIndexLazyRoute,
   OauthKakaoCallbackRoute,
 ])
 

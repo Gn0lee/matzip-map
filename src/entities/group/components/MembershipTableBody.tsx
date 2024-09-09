@@ -2,12 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import { Center, Spinner, Td, Text, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { useNavigate } from '@tanstack/react-router';
 
 import { membershipOptions } from 'src/entities/group/queries/group';
 import { MEMBERSHIP_ROLE_TEXT } from 'src/entities/group/lib/constants';
 
 export default function MembershipTableBody() {
 	const { data, isError } = useQuery(membershipOptions);
+
+	const navigate = useNavigate();
 
 	if (isError) {
 		return (
@@ -49,8 +52,16 @@ export default function MembershipTableBody() {
 		);
 	}
 
+	const handleClickRow = (id: string) => () => {
+		navigate({ to: '/group/$groupId', params: { groupId: id } });
+	};
+
 	return data.map(membership => (
-		<Tr key={membership.id}>
+		<Tr
+			key={membership.id}
+			_hover={{ backgroundColor: 'gray.200', cursor: 'pointer' }}
+			onClick={handleClickRow(membership.group_id)}
+		>
 			<Td>
 				<Text noOfLines={1}>{membership.group_name}</Text>
 			</Td>
