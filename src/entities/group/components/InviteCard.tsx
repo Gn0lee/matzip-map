@@ -16,7 +16,6 @@ export default function InviteCard() {
 
 			toast({
 				title: '링크 복사 완료',
-				description: '링크가 복사되었습니다.',
 				status: 'success',
 				duration: 2000,
 				isClosable: true,
@@ -24,7 +23,6 @@ export default function InviteCard() {
 		} catch (error) {
 			toast({
 				title: '링크 복사 실패',
-				description: '링크 복사에 실패했습니다.',
 				status: 'error',
 				duration: 2000,
 				isClosable: true,
@@ -43,7 +41,9 @@ export default function InviteCard() {
 			</CardHeader>
 			<CardBody>
 				<Stack spacing={6}>
-					<Text>아래 링크를 공유하여 {group_name}에 친구들을 초대하세요.</Text>
+					<Text>
+						아래 링크를 공유하여 <Text as="b">{group_name}</Text> 모임에 친구들을 초대하세요!
+					</Text>
 					<Button leftIcon={<CopyIcon />} onClick={handleClickCopy}>
 						링크 복사
 					</Button>
