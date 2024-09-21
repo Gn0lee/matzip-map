@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 
 import { matzipApiInstance } from 'src/shared/lib/ky';
 import { ApiData } from 'src/entities/home/types/api';
-import { MembershipData } from 'src/entities/group/types/group';
+import { MembershipData, GroupData } from 'src/entities/group/types/group';
 
 export const membershipOptions = queryOptions({
 	queryKey: [`membershipList`],
@@ -14,6 +14,14 @@ export const groupMembershipOptions = ({ group_id }: Pick<MembershipData, 'group
 	queryOptions({
 		queryKey: [`groupMembershipList`, group_id],
 		queryFn: () => matzipApiInstance.get(`group/membership/${group_id}`).json<ApiData<MembershipData>>(),
+		select: data => data.data,
+		throwOnError: true,
+	});
+
+export const groupOptions = ({ id }: Pick<GroupData, 'id'>) =>
+	queryOptions({
+		queryKey: [`group`, id],
+		queryFn: () => matzipApiInstance.get(`group/${id}`).json<ApiData<GroupData>>(),
 		select: data => data.data,
 		throwOnError: true,
 	});

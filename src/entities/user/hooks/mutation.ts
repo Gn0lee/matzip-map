@@ -15,10 +15,10 @@ export const usePostOauthKakaoCallback = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: (code: string) =>
+		mutationFn: ({ code, groupId }: { code: string; groupId?: string }) =>
 			matzipApiInstance
 				.get('oauth/kakao/callback', {
-					searchParams: { code },
+					searchParams: { code, group_id: groupId ?? '' },
 				})
 				.json<{ message: string }>(),
 		onSuccess: () => {

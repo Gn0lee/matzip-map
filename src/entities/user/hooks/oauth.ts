@@ -4,7 +4,7 @@ import { Route as KakaoRoute } from 'src/routes/oauth.kakao.callback';
 import { usePostOauthKakaoCallback } from 'src/entities/user/hooks/mutation';
 
 export const useKakaoOauthCallback = () => {
-	const { code } = KakaoRoute.useSearch();
+	const { code, groupId } = KakaoRoute.useSearch();
 
 	const isInitialized = useRef(false);
 
@@ -12,7 +12,7 @@ export const useKakaoOauthCallback = () => {
 
 	useEffect(() => {
 		if (code && !isInitialized.current) {
-			mutate(code);
+			mutate({ code, groupId });
 			isInitialized.current = true;
 		}
 
