@@ -53,7 +53,7 @@ export default function MembershipTableBody() {
 	}
 
 	const handleClickRow = (id: string) => () => {
-		navigate({ to: '/group/$groupId', params: { groupId: id } });
+		navigate({ to: '/group/detail/$groupId', params: { groupId: id } });
 	};
 
 	return data.map(membership => (

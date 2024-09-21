@@ -9,3 +9,10 @@ export const membershipOptions = queryOptions({
 	queryFn: () => matzipApiInstance.get('group/list').json<ApiData<MembershipData[]>>(),
 	select: data => data.data,
 });
+
+export const groupMembershipOptions = ({ group_id }: Pick<MembershipData, 'group_id'>) =>
+	queryOptions({
+		queryKey: [`groupMembershipList`, group_id],
+		queryFn: () => matzipApiInstance.get(`group/membership/${group_id}`).json<ApiData<MembershipData>>(),
+		select: data => data.data,
+	});
