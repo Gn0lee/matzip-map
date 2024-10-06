@@ -14,10 +14,7 @@ export default function LoginToJoinGroup() {
 		await supabase.auth.signInWithOAuth({
 			provider: 'kakao',
 			options: {
-				redirectTo: import.meta.env.VITE_KAKAO_CALLBACK_URL,
-				queryParams: {
-					group_id: groupId,
-				},
+				redirectTo: `${window.location.origin}/oauth/kakao/invite/${groupId}`,
 			},
 		});
 	};
