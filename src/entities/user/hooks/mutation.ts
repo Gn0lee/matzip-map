@@ -15,16 +15,15 @@ export const usePostOauthKakaoCallback = () => {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: ({ code }: { code: string; nextPath: string }) =>
+		mutationFn: ({ code, groupId }: { code: string; groupId?: string }) =>
 			matzipApiInstance
 				.get('oauth/kakao/callback', {
-					searchParams: { code },
+					searchParams: { code, group_id: groupId ?? '' },
 				})
 				.json<{ message: string }>(),
-		onSuccess: (_, { nextPath }) => {
+		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: userQueryOptions.queryKey });
-
-			navigate({ to: nextPath });
+			navigate({ to: '/' });
 		},
 		onError: () => {
 			if (!toast.isActive(FAIL_TOAST_ID)) {

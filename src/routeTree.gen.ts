@@ -16,7 +16,6 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as OauthKakaoCallbackImport } from './routes/oauth.kakao.callback'
 import { Route as GroupJoinGroupIdImport } from './routes/group/join.$groupId'
 import { Route as GroupDetailGroupIdImport } from './routes/group/detail.$groupId'
-import { Route as OauthKakaoInviteGroupIdImport } from './routes/oauth.kakao.invite.$groupId'
 
 // Create Virtual Routes
 
@@ -62,11 +61,6 @@ const GroupDetailGroupIdRoute = GroupDetailGroupIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const OauthKakaoInviteGroupIdRoute = OauthKakaoInviteGroupIdImport.update({
-  path: '/oauth/kakao/invite/$groupId',
-  getParentRoute: () => rootRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -99,10 +93,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OauthKakaoCallbackImport
       parentRoute: typeof rootRoute
     }
-    '/oauth/kakao/invite/$groupId': {
-      preLoaderRoute: typeof OauthKakaoInviteGroupIdImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -116,7 +106,6 @@ export const routeTree = rootRoute.addChildren([
   GroupDetailGroupIdRoute,
   GroupJoinGroupIdRoute,
   OauthKakaoCallbackRoute,
-  OauthKakaoInviteGroupIdRoute,
 ])
 
 /* prettier-ignore-end */

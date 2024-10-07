@@ -5,17 +5,16 @@ import { useKakaoOauthCallback } from 'src/entities/user/hooks/oauth';
 
 export const Route = createFileRoute('/oauth/kakao/callback')({
 	component: OauthKakaoCallback,
-	validateSearch: (search: Record<string, unknown>): { code?: string } => {
+	validateSearch: (search: Record<string, unknown>): { code?: string; groupId?: string } => {
 		return {
 			code: (search?.code as string) || '',
+			groupId: (search?.group_id as string) || '',
 		};
 	},
 });
 
 function OauthKakaoCallback() {
-	const { code } = Route.useSearch();
-
-	useKakaoOauthCallback({ nextPath: '/', code });
+	useKakaoOauthCallback();
 
 	return (
 		<Center width="100%" height="100%">
